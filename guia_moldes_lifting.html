@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masterclass de Moldes 🌿</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #161820;
+    --bg3: #1e2030;
+    --card: #1a1c2a;
+    --border: #2a2d42;
+    --rose: #e8a0a0;
+    --rose2: #d4707a;
+    --gold: #c9a96e;
+    --teal: #7ec8c8;
+    --teal2: #4fa8a8;
+    --lavender: #a89ec9;
+    --text: #e8e6f0;
+    --text2: #a8a6b8;
+    --text3: #6a6880;
+    --accent: #e8a0a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--rose2), var(--gold), var(--teal));
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.1s;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 70px 24px 50px;
+    text-align: center;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse, rgba(232,160,160,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rose2);
+    background: rgba(232,160,160,0.1);
+    border: 1px solid rgba(232,160,160,0.2);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 7vw, 52px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 14px;
+  }
+
+  h1 span { color: var(--rose); font-style: italic; }
+
+  .header-sub {
+    font-size: 15px;
+    color: var(--text2);
+    max-width: 480px;
+    margin: 0 auto 30px;
+    font-weight: 300;
+  }
+
+  .header-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--text3);
+  }
+
+  .header-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── TOC ── */
+  .toc-wrap {
+    padding: 0 16px 24px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 28px;
+  }
+
+  .toc-header {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    user-select: none;
+  }
+
+  .toc-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .toc-toggle { color: var(--text3); font-size: 12px; transition: transform 0.3s; }
+  .toc.open .toc-toggle { transform: rotate(180deg); }
+
+  .toc-list {
+    display: none;
+    padding: 12px 0;
+  }
+
+  .toc.open .toc-list { display: block; }
+
+  .toc-list a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 20px;
+    font-size: 14px;
+    color: var(--text2);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .toc-list a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+
+  .toc-num {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--rose2);
+    min-width: 22px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 12px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--card);
+    transition: border-color 0.3s;
+  }
+
+  .section:hover { border-color: rgba(232,160,160,0.25); }
+
+  .section-header {
+    padding: 22px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .section-header:hover { background: rgba(255,255,255,0.03); }
+
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--rose);
+    min-width: 32px;
+    line-height: 1;
+  }
+
+  .section-title {
+    flex: 1;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .section-icon { font-size: 16px; }
+
+  .section-chevron {
+    color: var(--text3);
+    font-size: 12px;
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .section.open .section-chevron { transform: rotate(180deg); }
+
+  .section-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .section.open .section-body { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .body-text {
+    font-size: 15px;
+    color: var(--text2);
+    margin: 16px 0;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 24px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 20px 0 10px;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: rgba(232,160,160,0.07);
+    border-left: 3px solid var(--rose2);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: var(--rose);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .callout-tip {
+    background: rgba(126,200,200,0.07);
+    border-left: 3px solid var(--teal2);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: var(--teal);
+    line-height: 1.7;
+  }
+
+  .callout-tip strong { font-weight: 600; }
+
+  .callout-warning {
+    background: rgba(201,169,110,0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: var(--gold);
+    line-height: 1.7;
+  }
+
+  /* ── BULLET LIST ── */
+  .blist {
+    list-style: none;
+    margin: 12px 0;
+  }
+
+  .blist li {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 15px;
+    color: var(--text2);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .blist li::before {
+    content: '—';
+    color: var(--rose2);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .blist li strong { color: var(--text); font-weight: 600; }
+
+  /* ── CURVA CARDS ── */
+  .curva-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 18px 0;
+  }
+
+  .curva-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .curva-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(232,160,160,0.3);
+  }
+
+  .curva-card-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .curva-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 40px;
+  }
+
+  .curva-c .curva-letter { color: #e8a0a0; }
+  .curva-d .curva-letter { color: #c9a96e; }
+  .curva-u .curva-letter { color: #7ec8c8; }
+  .curva-ld .curva-letter { color: #a89ec9; }
+  .curva-m .curva-letter { color: #8ab4a0; }
+
+  .curva-meta { flex: 1; }
+  .curva-name { font-size: 15px; font-weight: 600; color: var(--text); }
+  .curva-tagline { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+  .curva-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .curva-c .curva-badge { background: rgba(232,160,160,0.15); color: #e8a0a0; }
+  .curva-d .curva-badge { background: rgba(201,169,110,0.15); color: #c9a96e; }
+  .curva-u .curva-badge { background: rgba(126,200,200,0.15); color: #7ec8c8; }
+  .curva-ld .curva-badge { background: rgba(168,158,201,0.15); color: #a89ec9; }
+  .curva-m .curva-badge { background: rgba(138,180,160,0.15); color: #8ab4a0; }
+
+  .curva-card-body {
+    padding: 0 18px 16px;
+    font-size: 14px;
+    color: var(--text2);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .curva-card-body strong { color: var(--text); font-weight: 600; }
+
+  .curva-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .pill {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text3);
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 18px 0;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead tr {
+    background: rgba(232,160,160,0.1);
+  }
+
+  th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--rose);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 11px 14px;
+    color: var(--text2);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+    font-weight: 300;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  td strong { color: var(--text); font-weight: 600; }
+
+  /* ── OJO CARDS ── */
+  .ojo-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .ojo-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .ojo-emoji { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+
+  .ojo-content {}
+  .ojo-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .ojo-desc { font-size: 14px; color: var(--text2); font-weight: 300; line-height: 1.6; }
+  .ojo-sol { margin-top: 8px; font-size: 13px; color: var(--teal); }
+
+  /* ── FORMULA BOX ── */
+  .formula {
+    background: var(--bg);
+    border: 1px solid rgba(232,160,160,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--rose);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── PERCENTAGE VISUAL ── */
+  .pct-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  .pct-label { min-width: 160px; color: var(--text2); font-weight: 300; }
+
+  .pct-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .pct-bar {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--rose2), var(--gold));
+  }
+
+  .pct-val { font-size: 13px; font-weight: 600; color: var(--gold); min-width: 38px; text-align: right; }
+
+  /* ── STEPS ── */
+  .steps {
+    margin: 16px 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--rose2);
+    min-width: 28px;
+    line-height: 1.3;
+  }
+
+  .step-text { font-size: 14px; color: var(--text2); font-weight: 300; line-height: 1.6; }
+  .step-text strong { color: var(--text); font-weight: 600; }
+
+  /* ── MOLDE PILLS ── */
+  .moldes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  .molde-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  .molde-item-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .molde-item-desc { font-size: 12px; color: var(--text3); font-weight: 300; line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text3);
+    font-size: 13px;
+  }
+
+  footer .heart { color: var(--rose); }
+
+  /* ── EXPAND ALL BTN ── */
+  .controls {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 0 0 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn:hover { border-color: var(--rose2); color: var(--rose); background: rgba(232,160,160,0.08); }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    position: sticky;
+    top: 4px;
+    z-index: 100;
+    padding: 10px 16px;
+    max-width: 760px;
+    margin: 0 auto 8px;
+  }
+
+  .search-inner {
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 44px 12px 18px;
+    background: rgba(26,28,42,0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: rgba(232,160,160,0.4); }
+  .search-input::placeholder { color: var(--text3); }
+
+  .search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3);
+    font-size: 14px;
+  }
+
+  /* ── HIGHLIGHTS ── */
+  .highlight {
+    background: rgba(201,169,110,0.3);
+    color: var(--gold);
+    border-radius: 2px;
+    padding: 0 2px;
+  }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .badge-key { background: rgba(232,160,160,0.15); color: var(--rose); }
+  .badge-tip { background: rgba(126,200,200,0.15); color: var(--teal); }
+  .badge-warn { background: rgba(201,169,110,0.15); color: var(--gold); }
+
+  @media (min-width: 600px) {
+    .curva-grid { grid-template-columns: 1fr 1fr; }
+    .ojo-grid { grid-template-columns: 1fr 1fr; }
+    .moldes-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  @media (max-width: 420px) {
+    .moldes-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 15px; }
+    .pct-label { min-width: 120px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-tag">Lami Maker · Guía de Estudio</div>
+  <h1>Masterclass de<br><span>Moldes</span></h1>
+  <p class="header-sub">Todo lo que necesitás saber sobre lifting de pestañas: curvas, materiales, químico y tipos de ojos.</p>
+  <div class="header-meta">
+    <span>🌿 10 secciones</span>
+    <span>✦ Completo desde el video</span>
+    <span>📱 Listo para estudiar</span>
+  </div>
+</header>
+
+<!-- TOC -->
+<div class="toc-wrap">
+  <div class="toc" id="toc">
+    <div class="toc-header" onclick="toggleToc()">
+      <span class="toc-title">Índice de contenido</span>
+      <span class="toc-toggle">▼</span>
+    </div>
+    <div class="toc-list">
+      <a href="#s0"><span class="toc-num">✦</span> Objetivo de la clase</a>
+      <a href="#s1"><span class="toc-num">1</span> Materiales de los moldes</a>
+      <a href="#s2"><span class="toc-num">2</span> Anatomía del molde</a>
+      <a href="#s3"><span class="toc-num">3</span> Tipos de curvas</a>
+      <a href="#s4"><span class="toc-num">4</span> Elección del talle</a>
+      <a href="#s5"><span class="toc-num">5</span> Colocación del químico</a>
+      <a href="#s6"><span class="toc-num">6</span> Curvatura vs. Proyección</a>
+      <a href="#s7"><span class="toc-num">7</span> Tipos de ojos</a>
+      <a href="#s8"><span class="toc-num">8</span> Efectos con un mismo molde</a>
+      <a href="#s9"><span class="toc-num">9</span> Moldes recomendados</a>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div class="search-inner">
+    <input class="search-input" type="text" id="searchInput" placeholder="Buscar en el contenido... (ej: curva C, ápice, químico)" oninput="doSearch()">
+    <span class="search-icon">🔍</span>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<main>
+  <div class="controls">
+    <button class="btn" onclick="expandAll()">Abrir todo</button>
+    <button class="btn" onclick="collapseAll()">Cerrar todo</button>
+  </div>
+
+  <!-- ─── OBJETIVO ─── -->
+  <div class="section open" id="s0">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">✦</span>
+      <span class="section-icon">🎯</span>
+      <span class="section-title">Objetivo de la clase</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">La idea principal es que puedas <strong>razonar por qué elegís cada molde</strong>, no memorizar nombres. Cuando venga una clienta, mirás sus pestañas y ojos, y ya sabés qué hacer y por qué.</p>
+      <div class="callout">"No se trata de clasificarlo en letras y listo. Se trata de que vos mires el molde y sepas qué forma va a copiar tu pestaña."</div>
+      <p class="body-text">Equivocarse de molde no es el fin del mundo, pero tampoco se puede trabajar adivinando. El conocimiento más el razonamiento te dan seguridad en cada sesión.</p>
+      <div class="callout-tip">
+        <strong>La fórmula clave:</strong> Mirar el molde → Entender la forma que generará → Actuar con un propósito claro.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MATERIALES ─── -->
+  <div class="section" id="s1">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">1</span>
+      <span class="section-icon">🧴</span>
+      <span class="section-title">Materiales de los moldes</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">Los materiales evolucionaron mucho. De peor a mejor:</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Calidad</th>
+              <th>¿Usar?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Goma</strong></td>
+              <td>No se adapta, rígido, incómodo</td>
+              <td>❌ Nunca</td>
+            </tr>
+            <tr>
+              <td><strong>Silicona básica</strong></td>
+              <td>Mejor que goma, pero se levanta el lagrimal</td>
+              <td>❌ Evitar</td>
+            </tr>
+            <tr>
+              <td><strong>Silicona premium</strong></td>
+              <td>Buena adhesión, se adapta bien al ojo</td>
+              <td>✅ Sí</td>
+            </tr>
+            <tr>
+              <td><strong>Silicona grado médico</strong></td>
+              <td>Más blanda y elástica, como un chicle</td>
+              <td>✅ Sí</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout-tip">
+        Entre <strong>silicona premium</strong> y <strong>grado médico</strong> no hay diferencia práctica. Ambas son excelentes y las pestañas se adhieren perfectamente en las dos.
+      </div>
+
+      <div class="callout-warning">
+        ⚠️ Señal de alerta: si al pasar el peine las pestañas se desprenden del molde, la silicona es de mala calidad. Algunas siliconas "anatómicas" tienen baja porosidad y no adhieren bien aunque se vean bien.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── ANATOMÍA ─── -->
+  <div class="section" id="s2">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">2</span>
+      <span class="section-icon">🔎</span>
+      <span class="section-title">Anatomía del molde</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">Conocer las partes del molde es la base de todo el razonamiento.</p>
+
+      <ul class="blist">
+        <li><strong>Lagrimal:</strong> inicio del ojo. Primera zona que se levanta si el molde no adhiere bien.</li>
+        <li><strong>Final:</strong> extremo exterior del molde.</li>
+        <li><strong>Ápice:</strong> la parte <em>más importante</em>. Es la zona más gruesa/prominente. Su posición determina toda la forma resultante de la pestaña.</li>
+        <li><strong>Solapa:</strong> la "orejita" de sujeción. Si es muy larga puede incomodar. Se puede cortar sin problema.</li>
+      </ul>
+
+      <h3>¿Cómo identificar el ápice?</h3>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <span class="step-text">Agarrá el molde y doblalo a la mitad.</span>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <span class="step-text">Miralo de costado.</span>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <span class="step-text">La parte que <strong>más sobresale</strong> es el ápice.</span>
+        </div>
+      </div>
+
+      <div class="formula">
+        Ápice en el centro → genera <em>curvatura</em><br>
+        Ápice desplazado a la base → genera <em>proyección</em>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CURVAS ─── -->
+  <div class="section" id="s3">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">3</span>
+      <span class="section-icon">〜</span>
+      <span class="section-title">Tipos de curvas</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">La posición del ápice es el criterio principal. No importa tanto la letra sino entender qué forma va a tomar tu pestaña.</p>
+
+      <div class="curva-grid">
+
+        <div class="curva-card curva-c">
+          <div class="curva-card-header">
+            <span class="curva-letter">C</span>
+            <div class="curva-meta">
+              <div class="curva-name">Curva C</div>
+              <div class="curva-tagline">Ápice al centro · Muy redondo</div>
+            </div>
+            <span class="curva-badge">La más usada</span>
+          </div>
+          <div class="curva-card-body">
+            El pelo sale <strong>hacia adelante primero</strong> y luego dobla hacia arriba. Genera una base sólida que soporta el peso del pelo. La instructora la usa casi todos los días.
+            <div class="curva-pills">
+              <span class="pill">Rectas</span>
+              <span class="pill">Lacias</span>
+              <span class="pill">Descendentes</span>
+              <span class="pill">Gruesas</span>
+              <span class="pill">Químico: 80%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="curva-card curva-d">
+          <div class="curva-card-header">
+            <span class="curva-letter">D</span>
+            <div class="curva-meta">
+              <div class="curva-name">Curva D</div>
+              <div class="curva-tagline">Ápice desplazado · Muy marcado</div>
+            </div>
+            <span class="curva-badge">Proyecta</span>
+          </div>
+          <div class="curva-card-body">
+            El pelo va <strong>adelante, dobla en la base</strong> y sube proyectado. No fuerza el crecimiento natural: lo acompaña y luego levanta. Ideal para descendentes sin estresarlas.
+            <div class="curva-pills">
+              <span class="pill">Descendentes</span>
+              <span class="pill">Resultados marcados</span>
+              <span class="pill">Químico: ~70%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="curva-card curva-u">
+          <div class="curva-card-header">
+            <span class="curva-letter">U</span>
+            <div class="curva-meta">
+              <div class="curva-name">Curva U</div>
+              <div class="curva-tagline">Ápice al centro · Semirredondo</div>
+            </div>
+            <span class="curva-badge">Universal</span>
+          </div>
+          <div class="curva-card-body">
+            El pelo <strong>sale hacia arriba y luego dobla</strong>. Genera distancia entre párpado y pestaña aprovechando todo el largo. Más proyección en las raíces que la C.
+            <div class="curva-pills">
+              <span class="pill">Todo tipo</span>
+              <span class="pill">❌ No descendentes</span>
+              <span class="pill">Químico: 50–60%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="curva-card curva-ld">
+          <div class="curva-card-header">
+            <span class="curva-letter">LD</span>
+            <div class="curva-meta">
+              <div class="curva-name">Curva LD</div>
+              <div class="curva-tagline">Semiplano · Ápice muy marcado</div>
+            </div>
+            <span class="curva-badge">Exagerado</span>
+          </div>
+          <div class="curva-card-body">
+            Similar a la D pero <strong>más plano</strong>. Deja la curva muy marcada en la raíz. Mucho margen de error: si el químico pasa el ápice, la punta se va para adentro.
+            <div class="curva-pills">
+              <span class="pill">Con algo de curva</span>
+              <span class="pill">Cuidado con el %</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="curva-card curva-m">
+          <div class="curva-card-header">
+            <span class="curva-letter">M</span>
+            <div class="curva-meta">
+              <div class="curva-name">Curva M</div>
+              <div class="curva-tagline">Plano · Sin ápice marcado</div>
+            </div>
+            <span class="curva-badge">Solo curvadas</span>
+          </div>
+          <div class="curva-card-body">
+            Casi sin ápice. Si el químico se sube demasiado la pestaña sube recta y <strong>solo dobla al final hacia adentro</strong>. En pestañas resistentes/descendentes: el resultado cae al día siguiente.
+            <div class="curva-pills">
+              <span class="pill">Curvadas naturalmente</span>
+              <span class="pill">❌ No descendentes</span>
+              <span class="pill">Químico: 40%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <h3>Tabla resumen rápido</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Curva</th>
+              <th>Ápice</th>
+              <th>Ideal para</th>
+              <th>% Químico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>C</strong></td><td>Centro, muy redondo</td><td>Rectas, lacias, descendentes gruesas</td><td>80%</td></tr>
+            <tr><td><strong>D</strong></td><td>Base, muy marcado</td><td>Descendentes (respeta crecimiento)</td><td>~70%</td></tr>
+            <tr><td><strong>U</strong></td><td>Centro, semiredondo</td><td>Todo tipo, NO descendentes</td><td>50–60%</td></tr>
+            <tr><td><strong>LD</strong></td><td>Desplazado, muy marcado</td><td>Con algo de curva natural</td><td>Precaución</td></tr>
+            <tr><td><strong>M</strong></td><td>Casi sin ápice</td><td>Solo curvadas naturalmente</td><td>40%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TALLE ─── -->
+  <div class="section" id="s4">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">4</span>
+      <span class="section-icon">📏</span>
+      <span class="section-title">Elección del talle correcto</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">El talle es tan determinante como la curva porque condiciona directamente hasta dónde podés colocar el químico.</p>
+
+      <h3>¿Cuánto pelo debe cubrir el molde?</h3>
+
+      <div class="pct-row">
+        <span class="pct-label">Tendencia actual</span>
+        <div class="pct-bar-wrap"><div class="pct-bar" style="width:80%"></div></div>
+        <span class="pct-val">70–80%</span>
+      </div>
+      <div class="pct-row">
+        <span class="pct-label">Ojos complicados</span>
+        <div class="pct-bar-wrap"><div class="pct-bar" style="width:55%;background:linear-gradient(90deg,var(--teal2),var(--teal))"></div></div>
+        <span class="pct-val">50–60%</span>
+      </div>
+      <div class="pct-row">
+        <span class="pct-label">Anticuado (evitar)</span>
+        <div class="pct-bar-wrap"><div class="pct-bar" style="width:100%;background:linear-gradient(90deg,#555,#444)"></div></div>
+        <span class="pct-val">100%</span>
+      </div>
+
+      <div class="callout-tip">
+        <strong>Por qué importa:</strong> Si elegís el molde con las pestañas al 100%, el margen para el químico es muy pequeño. Si lo subís demasiado, la pestaña copia la forma completa del molde y puede quedar como un rulo o doblarse hacia adentro.
+      </div>
+
+      <h3>Lógica para ojos complicados</h3>
+      <p class="body-text">Usar molde grande (pestaña al 50–60%) + químico al 80% del pelo = sabés exactamente la distancia que generará el ápice entre la piel y la pestaña.</p>
+
+      <div class="callout">"Elegir el talle es elegir qué forma va a copiar mi pestaña. Primero mirá el molde de costado, medí hasta dónde llega el pelo y determiná hasta dónde transformarlo."</div>
+    </div>
+  </div>
+
+  <!-- ─── QUÍMICO ─── -->
+  <div class="section" id="s5">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">5</span>
+      <span class="section-icon">💧</span>
+      <span class="section-title">Colocación del químico</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">Este es el punto más técnico. La altura, uniformidad y forma de aplicar el químico define si el lifting queda perfecto, flojo, o con las pestañas dobladas.</p>
+
+      <h3>Principios fundamentales</h3>
+      <ul class="blist">
+        <li>Aplicar <strong>desde la raíz visible</strong> del pelo, de manera uniforme.</li>
+        <li>Donde <strong>no hay químico, el pelo no se transforma</strong>: si crece hacia abajo, las raíces seguirán hacia abajo.</li>
+        <li>Si hay huecos en la aplicación, aparecerán <strong>picos de pelo sin transformar</strong>.</li>
+        <li>Algunos químicos pueden usarse hasta la base de la piel sin arder (Ferrari, Mela, Beauty Waves, Easy Kit). Otros son más agresivos (Lion Beauty).</li>
+      </ul>
+
+      <h3>Porcentajes por tipo de pestaña</h3>
+      <p class="body-text" style="font-size:13px;color:var(--text3)">(Para pestañas que llegan al 80% del molde)</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo de pestaña</th>
+              <th>Molde ideal</th>
+              <th>% Químico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Lacias, rectas, descendentes gruesas</td><td>Curva C</td><td><strong>80%</strong></td></tr>
+            <tr><td>Lacias con resultado proyectado</td><td>Curva D</td><td><strong>~70%</strong></td></tr>
+            <tr><td>Intermedias, no muy duras</td><td>Curva U, M o D</td><td><strong>50–60%</strong></td></tr>
+            <tr><td>Con curva natural, cortas</td><td>Plano o ápice desplazado</td><td><strong>40%</strong></td></tr>
+            <tr><td>Largas y arqueadas</td><td>Curva C (por el peso)</td><td><strong>40–50%</strong></td></tr>
+            <tr><td>Ojos encapotados / hundidos</td><td>Curva C o U, talle grande</td><td><strong>Más abajo del estándar</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Límites por tipo de molde</h3>
+      <ul class="blist">
+        <li><strong>Curva C:</strong> hasta el 80%. Copiar casi toda la forma redonda.</li>
+        <li><strong>Curva D:</strong> hasta el ápice (~70%). Pasarlo = puntas se doblan hacia adentro.</li>
+        <li><strong>Curva U:</strong> 50–60%. Las raíces quedan muy proyectadas.</li>
+        <li><strong>Moldes planos (M, LD):</strong> muy cuidadosas. El margen de error es pequeño.</li>
+      </ul>
+
+      <h3>Ajustes por zona del ojo</h3>
+      <ul class="blist">
+        <li><strong>Lagrimales muy largos:</strong> bajar un poco la altura en esa zona para que no queden cerrados.</li>
+        <li><strong>Finales más cortos:</strong> también bajar levemente para que no se doblen hacia adentro.</li>
+        <li><strong>Lagrimales planos en el molde:</strong> considerar invertir el molde (ojo derecho en izquierdo).</li>
+      </ul>
+
+      <div class="callout-warning">
+        ⚠️ Si el químico pasa el límite del molde, la pestaña copia esa forma y puede quedar doblada hacia adentro. Este error no se puede corregir una vez que actuó el químico.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── CURVATURA VS PROYECCIÓN ─── -->
+  <div class="section" id="s6">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">6</span>
+      <span class="section-icon">↑</span>
+      <span class="section-title">Curvatura vs. Proyección</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">Dos grandes resultados posibles con el lifting:</p>
+
+      <div class="ojo-grid" style="grid-template-columns:1fr 1fr;gap:12px;margin:16px 0">
+        <div class="ojo-card" style="flex-direction:column;align-items:flex-start">
+          <div style="font-size:28px;margin-bottom:8px">〜</div>
+          <div class="ojo-title" style="color:var(--rose)">Curvatura</div>
+          <div class="ojo-desc">La pestaña sale del ojo de manera suave y tiene curva desde la base. Lo más sano para el pelo y el recambio. Se puede hacer en <strong>cualquier tipo de pestaña</strong>.</div>
+        </div>
+        <div class="ojo-card" style="flex-direction:column;align-items:flex-start">
+          <div style="font-size:28px;margin-bottom:8px">↑</div>
+          <div class="ojo-title" style="color:var(--teal)">Proyección</div>
+          <div class="ojo-desc">El pelo nace y sale disparado hacia arriba. Requiere condiciones específicas. No para todas las pestañas.</div>
+        </div>
+      </div>
+
+      <h3>¿Cuándo hacer proyección?</h3>
+      <ul class="blist">
+        <li>Pestañas con <strong>crecimiento ascendente</strong>, curva natural o crecimiento recto.</li>
+        <li>Que <strong>no sean gruesas</strong> (deben soportar estar tan elevadas).</li>
+        <li>Si son gruesas o duras: usar molde con <strong>ápice desplazado</strong> para generar base de soporte.</li>
+      </ul>
+
+      <div class="callout">La proyección sin base de soporte en pestañas pesadas es el error más frecuente. El resultado se cae al día siguiente.</div>
+
+      <div class="callout-tip">
+        <strong>Truco:</strong> Querés proyectar raíces de manera segura → Curva U. Querés curvatura hermosa con base sólida → Curva C.
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TIPOS DE OJO ─── -->
+  <div class="section" id="s7">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">7</span>
+      <span class="section-icon">👁️</span>
+      <span class="section-title">Cómo trabajar según el tipo de ojo</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="callout-tip">
+        <strong>Siempre evaluar a la clienta de frente y de perfil, parada o sentada.</strong> Nunca acostada: la piel se estira y cambia todo el diagnóstico. Sacar foto del antes.
+      </div>
+
+      <div class="ojo-grid">
+
+        <div class="ojo-card">
+          <span class="ojo-emoji">😔</span>
+          <div class="ojo-content">
+            <div class="ojo-title">Ojo encapotado con hueso prominente</div>
+            <div class="ojo-desc">La piel cae sobre las pestañas y el hueso de la ceja sobresale claramente. Hay que separar la pestaña de la piel hacia arriba.</div>
+            <div class="ojo-sol">✦ Molde C o U, talle más grande (60%). O estándar con químico más bajo. Evitar ápice desplazado.</div>
+          </div>
+        </div>
+
+        <div class="ojo-card">
+          <span class="ojo-emoji">🙂</span>
+          <div class="ojo-content">
+            <div class="ojo-title">Ojo encapotado sin hueso prominente</div>
+            <div class="ojo-desc">La piel cae sobre las pestañas pero no hay hueso prominente. Solo hay que separar la pestaña en la raíz. Caso más fácil.</div>
+            <div class="ojo-sol">✦ Molde ápice desplazado, o C/U en talle más grande.</div>
+          </div>
+        </div>
+
+        <div class="ojo-card">
+          <span class="ojo-emoji">👁</span>
+          <div class="ojo-content">
+            <div class="ojo-title">Ojos hundidos (profundos)</div>
+            <div class="ojo-desc">El contorno óseo sobresale. El molde tiende a caerse. Hay que sacar la pestaña hacia adelante, no hacia arriba (chocaría con el hueso).</div>
+            <div class="ojo-sol">✦ Curva C con químico más bajo, o curva U con talle grande (50–60%) y químico al 80%.</div>
+          </div>
+        </div>
+
+        <div class="ojo-card">
+          <span class="ojo-emoji">😌</span>
+          <div class="ojo-content">
+            <div class="ojo-title">Párpado caído (sin encapotamiento)</div>
+            <div class="ojo-desc">La piel cae pero no toca las pestañas. Se trabaja normalmente según el tipo de pestaña.</div>
+            <div class="ojo-sol">✦ Normal. Guiarse solo por el tipo de pestaña.</div>
+          </div>
+        </div>
+
+        <div class="ojo-card">
+          <span class="ojo-emoji">👀</span>
+          <div class="ojo-content">
+            <div class="ojo-title">Ojos saltones</div>
+            <div class="ojo-desc">Algunos dicen que hay que evitar proyecciones para no acentuarlos. Pero si la clienta lo quiere y sus pestañas lo resisten, se hace.</div>
+            <div class="ojo-sol">✦ Depende de la pestaña y del deseo de la clienta.</div>
+          </div>
+        </div>
+
+        <div class="ojo-card">
+          <span class="ojo-emoji">🦴</span>
+          <div class="ojo-content">
+            <div class="ojo-title">Hueso de ceja muy prominente (sin párpado visible)</div>
+            <div class="ojo-desc">Caso complejo: hay directamente hueso y ceja. Bajar aún más el químico en la zona del lagrimal.</div>
+            <div class="ojo-sol">✦ Curva C con químico bajo, o U con talle grande. No son comunes.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── EFECTOS ─── -->
+  <div class="section" id="s8">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">8</span>
+      <span class="section-icon">✨</span>
+      <span class="section-title">Efectos con un mismo molde</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">Una vez que dominás la teoría, podés crear efectos distintos sin cambiar de molde:</p>
+
+      <ul class="blist">
+        <li><strong>Usar el molde al revés</strong> (ojo derecho en izquierdo): cambia la configuración de lagrimales y finales. Útil cuando el lagrimal del molde es muy plano.</li>
+        <li><strong>Colocar el molde 1 mm por encima</strong> del nacimiento: procesa más las raíces, resultado con raíces más proyectadas.</li>
+        <li><strong>Bajar el químico al final del ojo:</strong> ese sector queda más abierto, efecto "Foxy" natural sin necesidad de peinar hacia los costados.</li>
+      </ul>
+
+      <div class="callout-warning">
+        ⚠️ Estos efectos solo son posibles en pestañas dóciles, grosor intermedio y con crecimiento recto. Nunca en descendentes o muy resistentes.
+      </div>
+
+      <div class="callout">"Una vez que integrás todo el conocimiento, podés empezar a crear y ver qué hacés con lo que tenés, porque lo vas a hacer a conciencia, con un propósito."</div>
+    </div>
+  </div>
+
+  <!-- ─── MOLDES RECOMENDADOS ─── -->
+  <div class="section" id="s9">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">9</span>
+      <span class="section-icon">🛍️</span>
+      <span class="section-title">Moldes recomendados</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <div class="callout-tip">
+        <strong>Importante:</strong> Los proveedores suelen clasificar mal los moldes. Lo más confiable es mirarlo de costado vos misma e identificar la posición del ápice.
+      </div>
+
+      <div class="moldes-grid">
+        <div class="molde-item">
+          <div class="molde-item-name">🌿 Tedy</div>
+          <div class="molde-item-desc">Curva U. Para todo tipo de pestaña excepto descendentes.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">🐚 Shel / Perla</div>
+          <div class="molde-item-desc">Curva C/U. Para pestañas rectas y todo tipo.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">🐱 Kitten</div>
+          <div class="molde-item-desc">Ápice desplazado + talles planos. Para rectas y curvadas. Se consigue en Brawlash.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">❄️ Frozen</div>
+          <div class="molde-item-desc">Los más completos: planos, ápice desplazado, curva U y C. Muy populares.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">🐼 Panda</div>
+          <div class="molde-item-desc">Curva M. El talle L tiene ápice marcado y es el favorito. Para resultados proyectados.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">🌊 Jelly</div>
+          <div class="molde-item-desc">Silicona anatómica suave, curva U. Muy recomendados.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">🌈 Rubrid / Rainbow</div>
+          <div class="molde-item-desc">Celeste (U), naranja (XL), verde XXL casi plano. Solo 2-3 talles útiles del kit.</div>
+        </div>
+        <div class="molde-item">
+          <div class="molde-item-name">👩 Woman</div>
+          <div class="molde-item-desc">Ápice desplazado. Para proyección con base.</div>
+        </div>
+      </div>
+
+      <div class="callout-warning">
+        ⚠️ Regla de compra: primero entendé el molde, después compralo. No acumules moldes iguales ni compres sin saber para qué caso te sirven.
+      </div>
+
+      <h3>Lo que sí o sí tenés que tener</h3>
+      <ul class="blist">
+        <li>Al menos un set de <strong>curva C</strong> (para pestañas rectas/descendentes).</li>
+        <li>Al menos un set de <strong>curva U</strong> (uso general).</li>
+        <li>Algún molde <strong>plano o con ápice desplazado</strong> para casos específicos.</li>
+        <li><strong>Nada de goma.</strong> Solo silicona premium o grado médico.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─── REPASO FINAL ─── -->
+  <div class="section" id="s10">
+    <div class="section-header" onclick="toggleSection(this)">
+      <span class="section-num">✓</span>
+      <span class="section-icon">🌙</span>
+      <span class="section-title">Repaso final · Checklist</span>
+      <span class="section-chevron">▼</span>
+    </div>
+    <div class="section-body">
+      <p class="body-text">Antes de cada sesión, hacete estas preguntas:</p>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <span class="step-text"><strong>¿Cómo es el crecimiento?</strong> Ascendente, recto, descendente. ¿Son gruesas, finas, lacias, arqueadas?</span>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <span class="step-text"><strong>¿Qué tipo de ojo tiene?</strong> Evaluar de frente y de perfil, sentada o parada.</span>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <span class="step-text"><strong>¿Qué resultado busca la clienta?</strong> Curvatura natural o proyección marcada.</span>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <span class="step-text"><strong>Elegir la curva</strong> según los tres puntos anteriores. Mirar el molde de costado y confirmar la posición del ápice.</span>
+        </div>
+        <div class="step">
+          <span class="step-num">5</span>
+          <span class="step-text"><strong>Elegir el talle</strong>: que las pestañas lleguen al 70–80% del molde (o 50–60% si tiene ojos complicados).</span>
+        </div>
+        <div class="step">
+          <span class="step-num">6</span>
+          <span class="step-text"><strong>Colocar el químico</strong> al porcentaje correcto según el tipo de pestaña. Uniforme, desde la raíz.</span>
+        </div>
+        <div class="step">
+          <span class="step-num">7</span>
+          <span class="step-text"><strong>Ajustar por zonas</strong> si el lagrimal o el final necesitan diferente altura de químico.</span>
+        </div>
+      </div>
+
+      <div class="callout">"Tomar cada decisión con un propósito, sabiendo qué consecuencia vas a tener. Eso es trabajar como profesional."</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Guía de estudio basada en la Masterclass de Moldes <span class="heart">♥</span></p>
+  <p style="margin-top:6px;font-size:12px;color:var(--text3)">Hecha con cariño para que estudies tranquila 🌿</p>
+</footer>
+
+<script>
+  // ── PROGRESS BAR ──
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop || document.body.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  // ── TOC TOGGLE ──
+  function toggleToc() {
+    document.getElementById('toc').classList.toggle('open');
+  }
+
+  // ── SECTION TOGGLE ──
+  function toggleSection(header) {
+    const section = header.parentElement;
+    section.classList.toggle('open');
+  }
+
+  // ── EXPAND / COLLAPSE ALL ──
+  function expandAll() {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('open'));
+  }
+  function collapseAll() {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('open'));
+  }
+
+  // ── SEARCH ──
+  function doSearch() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    // Clear previous highlights
+    document.querySelectorAll('.highlight').forEach(el => {
+      el.outerHTML = el.innerHTML;
+    });
+
+    if (q.length < 2) return;
+
+    const sections = document.querySelectorAll('.section');
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+
+    sections.forEach(section => {
+      const body = section.querySelector('.section-body');
+      if (!body) return;
+
+      const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      let node;
+      while ((node = walker.nextNode())) textNodes.push(node);
+
+      let found = false;
+      textNodes.forEach(tn => {
+        if (re.test(tn.textContent)) {
+          found = true;
+          const span = document.createElement('span');
+          span.innerHTML = tn.textContent.replace(re, m => `<span class="highlight">${m}</span>`);
+          tn.parentNode.replaceChild(span, tn);
+          re.lastIndex = 0;
+        }
+      });
+
+      if (found) section.classList.add('open');
+    });
+  }
+
+  // ── TOC LINKS ──
+  document.querySelectorAll('.toc-list a').forEach(link => {
+    link.addEventListener('click', () => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.classList.add('open');
+      document.getElementById('toc').classList.remove('open');
+    });
+  });
+</script>
+</body>
+</html>
